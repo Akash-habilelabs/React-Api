@@ -1,0 +1,66 @@
+const [myData,setMyData]=useState([]);
+  const [isError,setIsError]=useState("");
+
+  // Note using fetch
+// useEffect(()=>{
+//   axios
+//   .get("https://jsonplaceholder.typicode.com/posts")
+//   .then((res)=>setMyData(res.data))
+//   .catch((error)=>setIsError(error.message))
+// },[]);
+
+// Note using async await
+const getApiData=async () =>{
+  try{
+  const res = await axios.get("https://jsonplaceholder.typicode.com/posts")
+  setMyData(res.data);
+} catch(error){
+  setIsError(error.message)
+}
+}
+
+useEffect(()=>{
+  getApiData()
+},[]);
+
+
+  return (<>
+  <h1>axios</h1>
+  {isError!=="" && <h2>{isError}</h2>}
+  {myData.map((post)=>{
+    const{id,title,body}=post;
+    return <div key={id}>
+      <h2>{title}</h2>
+      <p>{body}</p>
+    </div>
+  })}
+  </>);
+}
+
+
+
+
+// function App() {
+
+//   const formFields=[{
+//     id:1,
+//     name:"name",
+//     type:"text",
+//     label:"Name",
+//   },
+// {id:2,
+// name:"state",
+// type:"text",
+// label:"State"},
+// {id:3,
+
+// }]
+
+
+//   return (
+//     <div className="App">
+//       {/* <Assignment1 /> */}
+//       <Input></Input>
+//     </div>
+//   );
+// }
